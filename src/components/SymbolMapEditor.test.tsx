@@ -6,19 +6,18 @@ import userEvent from '@testing-library/user-event';
 import SymbolMapEditor from './SymbolMapEditor';
 
 describe('SymbolMapEditor', () => {
-  let rerender: any;
   const symbols = ['A', 'B', 'C', 'D'];
   const initialSymbolMap = {};
   const mockOnInteractionInputChange = jest.fn();
 
   beforeEach(() => {
-    rerender = render(
+    render(
       <SymbolMapEditor
         symbols={symbols}
         symbolMap={initialSymbolMap}
         onInteractionInputChange={mockOnInteractionInputChange}
       />
-    ).rerender;
+    );
   });
 
   test('should display title', () => {
