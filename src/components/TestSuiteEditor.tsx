@@ -5,12 +5,18 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
 export default function TestSuiteEditor() {
+  const [rawSci, setRawSci] = useState('');
   const [validSequencesCov, setValidSequencesCov] = useState(
     MIN_VALID_COV_VALUE
   );
   const [invalidSequencesCov, setInvalidSequencesCov] = useState(
     MIN_INVALID_COV_VALUE
   );
+
+  const onSciChange = (e: any) => {
+    const { value } = e.target;
+    setRawSci(value);
+  };
 
   const onValidSequencesCovInputChange = (e: any) => {
     const { value } = e.target;
@@ -36,6 +42,7 @@ export default function TestSuiteEditor() {
           aria-label="SCI Regex"
           variant="outlined"
           placeholder="Please enter a SCI Regex"
+          onChange={onSciChange}
         />
         <Box marginTop={3} marginBottom={1}>
           <Typography variant="h5">Coverage Criteria</Typography>
