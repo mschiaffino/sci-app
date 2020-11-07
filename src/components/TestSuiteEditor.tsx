@@ -5,16 +5,18 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 
 import { SciParser } from 'sci-parser';
+import SymbolMapEditor from './SymbolMapEditor';
+import { InteractionSymbolMap } from '../types';
 
 export default function TestSuiteEditor() {
   const [rawSci, setRawSci] = useState('');
-  const [validSequencesCov, setValidSequencesCov] = useState(
-    MIN_VALID_COV_VALUE
-  );
-  const [invalidSequencesCov, setInvalidSequencesCov] = useState(
-    MIN_INVALID_COV_VALUE
-  );
+  const [validCovN, setValidCovN] = useState(MIN_VALID_COV_N);
+  const [invalidCovN, setInvalidCovN] = useState(MIN_INVALID_COV_N);
+  const [symbols, setSymbols] = useState<string[]>([]);
+  const [symbolMap, setSymbolMap] = useState<InteractionSymbolMap>({});
   const [errorMessage, setErrorMessage] = useState<string | null>();
+  const [validSequences, setvalidSequences] = useState<string[]>([]);
+  const [invalidSequences, setinvalidSequences] = useState<string[]>([]);
 
   const onSciChange = (e: any) => {
     const { value } = e.target;
@@ -23,21 +25,29 @@ export default function TestSuiteEditor() {
 
   const onValidSequencesCovInputChange = (e: any) => {
     const { value } = e.target;
-    setValidSequencesCov(
-      value && value < MIN_VALID_COV_VALUE ? MIN_VALID_COV_VALUE : value
-    );
+    setValidCovN(value && value < MIN_VALID_COV_N ? MIN_VALID_COV_N : value);
   };
 
   const onInvalidSequencesCovInputChange = (e: any) => {
     const { value } = e.target;
-    setInvalidSequencesCov(
-      value && value < MIN_INVALID_COV_VALUE ? MIN_INVALID_COV_VALUE : value
+    setInvalidCovN(
+      value && value < MIN_INVALID_COV_N ? MIN_INVALID_COV_N : value
     );
   };
 
+  const onInteractionInputChange = (symbol: string, interaction: string) => {
+    setSymbolMap((prevValue) => ({ ...prevValue, [symbol]: interaction }));
+  };
+
   useEffect(() => {
+    const sci = SciParser.parse(rawSci);
+    if (sci) {
+      setSymbols(sci.interactionSymbols);
+      setvalidSequences(sci.validSequences(validCovN));
+      setinvalidSequences(sci.invalidSequences(invalidCovN));
+    }
     setErrorMessage(SciParser.syntaxErrorMessage(rawSci));
-  }, [rawSci]);
+  }, [rawSci, validCovN, invalidCovN]);
 
   return (
     <Box display="flex" flexDirection="column" maxWidth={700}>
@@ -63,10 +73,10 @@ export default function TestSuiteEditor() {
             aria-label="Valid Sequences"
             variant="outlined"
             type="number"
-            value={validSequencesCov}
+            value={validCovN}
             onChange={onValidSequencesCovInputChange}
             inputProps={{
-              min: MIN_VALID_COV_VALUE,
+              min: MIN_VALID_COV_N,
             }}
           />
         </Box>
@@ -76,11 +86,18 @@ export default function TestSuiteEditor() {
             aria-label="Invalid Sequences"
             variant="outlined"
             type="number"
-            value={invalidSequencesCov}
+            value={invalidCovN}
             onChange={onInvalidSequencesCovInputChange}
             inputProps={{
-              min: MIN_INVALID_COV_VALUE,
+              min: MIN_INVALID_COV_N,
             }}
+          />
+        </Box>
+        <Box marginTop={3}>
+          <SymbolMapEditor
+            symbols={symbols}
+            symbolMap={symbolMap}
+            onInteractionInputChange={onInteractionInputChange}
           />
         </Box>
       </Box>
@@ -88,5 +105,5 @@ export default function TestSuiteEditor() {
   );
 }
 
-const MIN_VALID_COV_VALUE = 0;
-const MIN_INVALID_COV_VALUE = 1;
+const MIN_VALID_COV_N = 0;
+const MIN_INVALID_COV_N = 1;
