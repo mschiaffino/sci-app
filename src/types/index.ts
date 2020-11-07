@@ -1,3 +1,32 @@
 export type InteractionSymbolMap = {
   [symbol: string]: string;
 };
+
+export type Report = {
+  id: string | null;
+  sci: string;
+  mappedSci?: string;
+  symbolMap?: InteractionSymbolMap;
+  coverageCriteria: CoverageCriteria;
+  validSequenceTestCases: TestCase[];
+  invalidSequenceTestCases: TestCase[];
+  passed?: boolean;
+  comments?: string;
+};
+
+export type CoverageCriteria = {
+  validSequences: number;
+  invalidSequences: number;
+};
+
+export type TestCase = {
+  interactions: Interaction[];
+  comments?: string;
+  passed?: boolean;
+};
+
+export type Interaction = {
+  symbol: string;
+  checked?: boolean;
+  comment?: string;
+};
