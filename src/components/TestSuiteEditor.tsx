@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Box from '@material-ui/core/Box/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+
+import { SciParser } from 'sci-parser';
 
 export default function TestSuiteEditor() {
   const [rawSci, setRawSci] = useState('');
@@ -12,6 +14,7 @@ export default function TestSuiteEditor() {
   const [invalidSequencesCov, setInvalidSequencesCov] = useState(
     MIN_INVALID_COV_VALUE
   );
+  const [errorMessage, setErrorMessage] = useState<string | null>();
 
   const onSciChange = (e: any) => {
     const { value } = e.target;
@@ -24,12 +27,17 @@ export default function TestSuiteEditor() {
       value && value < MIN_VALID_COV_VALUE ? MIN_VALID_COV_VALUE : value
     );
   };
+
   const onInvalidSequencesCovInputChange = (e: any) => {
     const { value } = e.target;
     setInvalidSequencesCov(
       value && value < MIN_INVALID_COV_VALUE ? MIN_INVALID_COV_VALUE : value
     );
   };
+
+  useEffect(() => {
+    setErrorMessage(SciParser.syntaxErrorMessage(rawSci));
+  }, [rawSci]);
 
   return (
     <Box display="flex" flexDirection="column" maxWidth={700}>
@@ -43,6 +51,8 @@ export default function TestSuiteEditor() {
           variant="outlined"
           placeholder="Please enter a SCI Regex"
           onChange={onSciChange}
+          error={!!rawSci && !!errorMessage}
+          helperText={rawSci && errorMessage}
         />
         <Box marginTop={3} marginBottom={1}>
           <Typography variant="h5">Coverage Criteria</Typography>

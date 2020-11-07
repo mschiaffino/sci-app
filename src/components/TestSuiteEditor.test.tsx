@@ -14,9 +14,35 @@ describe('TestSuiteEditor', () => {
     expect(title).toBeInTheDocument();
   });
 
-  test('should display sci regex text field', () => {
-    const textField = screen.getByLabelText('SCI Regex');
-    expect(textField).toBeInTheDocument();
+  describe('Regex text field', () => {
+    const invalidSci = 'A.(C.D';
+
+    test('should display sci regex text field', () => {
+      const textField = screen.getByLabelText('SCI Regex');
+      expect(textField).toBeInTheDocument();
+    });
+
+    test('should have error styling', async () => {
+      const textField = screen.getByLabelText('SCI Regex');
+      const input = textField.querySelector('input') as HTMLInputElement;
+      const label = textField.querySelector('label') as HTMLLabelElement;
+
+      userEvent.type(input, invalidSci);
+
+      expect(Object.values(label.classList)).toContain('Mui-error');
+    });
+
+    test('should display error message', async () => {
+      const textField = screen.getByLabelText('SCI Regex');
+      const input = textField.querySelector('input') as HTMLInputElement;
+
+      userEvent.type(input, invalidSci);
+
+      const errorMessage = screen.getByText(
+        'Invalid regular expression: /A(CD/: Unterminated group'
+      );
+      expect(errorMessage).toBeInTheDocument();
+    });
   });
 
   describe('Coverage Criteria', () => {
