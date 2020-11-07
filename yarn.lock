@@ -9609,6 +9609,11 @@ restore-cursor@^3.1.0:
     onetime "^5.1.0"
     signal-exit "^3.0.2"
 
+ret@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/ret/-/ret-0.3.1.tgz#74655c3d876a4b6c2576c592431c7b0a84d2b82d"
+  integrity sha512-I/Evl5NrbgURNN0zts1dtI0ItI9pBg53jicdv9JqGumyOX+K7FELFcr2k3ED0hT7t9GsHctZj2in+tXDJfXypw==
+
 ret@~0.1.10:
   version "0.1.15"
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
@@ -9839,6 +9844,13 @@ schema-utils@^3.0.0:
     "@types/json-schema" "^7.0.6"
     ajv "^6.12.5"
     ajv-keywords "^3.5.2"
+
+sci-parser@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/sci-parser/-/sci-parser-2.0.1.tgz#453ae5ce3a894b3b76d10a5d10cc0eb16bce6bb3"
+  integrity sha512-66OxptNrHcRAiBx7nDG3gwvrW2P4iWpN7kTzRXFjMXS5u449I+CdA4k5GjadxPlPG3dZyIk7DX5mwHm1pEmYUQ==
+  dependencies:
+    ret "^0.3.1"
 
 select-hose@^2.0.0:
   version "2.0.0"
