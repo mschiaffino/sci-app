@@ -76,4 +76,12 @@ describe('TestSuiteEditor', () => {
       expect(invalidSequencesInput.valueAsNumber).toBe(1);
     });
   });
+
+  describe('Generate report button', () => {
+    test('should display the button to generate report', () => {
+      const button = screen.getByText(/generate report/i);
+
+      expect(button).toBeInTheDocument();
+    });
+  });
 });

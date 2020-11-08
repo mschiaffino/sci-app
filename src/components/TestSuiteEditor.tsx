@@ -3,10 +3,13 @@ import React, { useEffect, useState } from 'react';
 import Box from '@material-ui/core/Box/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 import { SciParser } from 'sci-parser';
 import SymbolMapEditor from './SymbolMapEditor';
 import { InteractionSymbolMap } from '../types';
+import { generateReport } from '../utils/report';
+import { saveReport } from '../utils/storage';
 
 export default function TestSuiteEditor() {
   const [rawSci, setRawSci] = useState('');
@@ -37,6 +40,18 @@ export default function TestSuiteEditor() {
 
   const onInteractionInputChange = (symbol: string, interaction: string) => {
     setSymbolMap((prevValue) => ({ ...prevValue, [symbol]: interaction }));
+  };
+
+  const onGenerateReportClick = () => {
+    const report = generateReport(
+      rawSci,
+      validCovN,
+      invalidCovN,
+      symbolMap,
+      validSequences,
+      invalidSequences
+    );
+    saveReport(report);
   };
 
   useEffect(() => {
@@ -100,6 +115,14 @@ export default function TestSuiteEditor() {
             onInteractionInputChange={onInteractionInputChange}
           />
         </Box>
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={onGenerateReportClick}
+          disabled={!rawSci || !!errorMessage}
+        >
+          Generate Report
+        </Button>
       </Box>
     </Box>
   );
