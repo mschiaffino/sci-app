@@ -10,16 +10,16 @@ import SymbolMapEditor from './SymbolMapEditor';
 import { InteractionSymbolMap } from '../types';
 import { generateReport } from '../utils/report';
 import { saveReport } from '../utils/storage';
+import { Sci } from 'sci-parser/build/sci';
 
 export default function TestSuiteEditor() {
   const [rawSci, setRawSci] = useState('');
+  const [parsedSci, setParsedSci] = useState<Sci | null>(null);
   const [validCovN, setValidCovN] = useState(MIN_VALID_COV_N);
   const [invalidCovN, setInvalidCovN] = useState(MIN_INVALID_COV_N);
   const [symbols, setSymbols] = useState<string[]>([]);
   const [symbolMap, setSymbolMap] = useState<InteractionSymbolMap>({});
   const [errorMessage, setErrorMessage] = useState<string | null>();
-  const [validSequences, setvalidSequences] = useState<string[]>([]);
-  const [invalidSequences, setinvalidSequences] = useState<string[]>([]);
 
   const onSciChange = (e: any) => {
     const { value } = e.target;
@@ -43,6 +43,12 @@ export default function TestSuiteEditor() {
   };
 
   const onGenerateReportClick = () => {
+    if (!parsedSci) {
+      return;
+    }
+    // TODO Compute sequences using web workers to avoid blocking the UI
+    const validSequences = parsedSci.validSequences(validCovN);
+    const invalidSequences = parsedSci.invalidSequences(invalidCovN);
     const report = generateReport(
       rawSci,
       validCovN,
@@ -55,11 +61,10 @@ export default function TestSuiteEditor() {
   };
 
   useEffect(() => {
-    const sci = SciParser.parse(rawSci);
-    if (sci) {
-      setSymbols(sci.interactionSymbols);
-      setvalidSequences(sci.validSequences(validCovN));
-      setinvalidSequences(sci.invalidSequences(invalidCovN));
+    const parsed = SciParser.parse(rawSci);
+    setParsedSci(parsed);
+    if (parsed) {
+      setSymbols(parsed.interactionSymbols);
     }
     setErrorMessage(SciParser.syntaxErrorMessage(rawSci));
   }, [rawSci, validCovN, invalidCovN]);
@@ -119,7 +124,7 @@ export default function TestSuiteEditor() {
           color="primary"
           variant="contained"
           onClick={onGenerateReportClick}
-          disabled={!rawSci || !!errorMessage}
+          disabled={!parsedSci}
         >
           Generate Report
         </Button>
