@@ -3,7 +3,7 @@ export type InteractionSymbolMap = {
 };
 
 export type Report = {
-  id: string | null;
+  id: string;
   sci: string;
   mappedSci?: string;
   symbolMap?: InteractionSymbolMap;

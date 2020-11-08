@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 import { Interaction, InteractionSymbolMap, Report, TestCase } from '../types';
 
 export function generateReport(
@@ -9,7 +11,7 @@ export function generateReport(
   invalidSequences: string[]
 ): Report {
   return {
-    id: null,
+    id: uuid(),
     sci,
     symbolMap,
     mappedSci: getMappedSci(sci, symbolMap),

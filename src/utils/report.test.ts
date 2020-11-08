@@ -1,3 +1,5 @@
+import { validate as validateUuid } from 'uuid';
+
 import { InteractionSymbolMap, Report } from '../types';
 import {
   generateReport,
@@ -58,7 +60,7 @@ describe('report', () => {
         validSequences: ['O.C'],
         invalidSequences: ['C', 'O', 'S', 'Z'],
         expectedReport: {
-          id: null,
+          id: 'this should be replaced before equality comparison',
           sci: 'O.(S|Z)*.C',
           symbolMap: {
             O: 'Open',
@@ -85,17 +87,25 @@ describe('report', () => {
     ];
 
     for (const t of testParams) {
-      test(`should generate the expected report`, () => {
-        expect(
-          generateReport(
-            t.sci,
-            t.validCovN,
-            t.invalidCovN,
-            t.symbolMap,
-            t.validSequences,
-            t.invalidSequences
-          )
-        ).toEqual(t.expectedReport);
+      describe('', () => {
+        const generatedReport = generateReport(
+          t.sci,
+          t.validCovN,
+          t.invalidCovN,
+          t.symbolMap,
+          t.validSequences,
+          t.invalidSequences
+        );
+
+        test(`should generate the expected report`, () => {
+          // Id is a random uuid, we copy it for comparison to pass
+          t.expectedReport.id = generatedReport.id;
+          expect(generatedReport).toEqual(t.expectedReport);
+        });
+
+        test('should have a valid uuid as id', () => {
+          expect(validateUuid(generatedReport.id)).toBe(true);
+        });
       });
     }
   });
