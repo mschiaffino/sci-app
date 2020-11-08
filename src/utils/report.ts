@@ -2,6 +2,15 @@ import { v4 as uuid } from 'uuid';
 
 import { Interaction, InteractionSymbolMap, Report, TestCase } from '../types';
 
+/**
+ * Generate object representation of a generated report
+ * @param sci The SCI string
+ * @param validCovN N for valid sequences coverage criteria
+ * @param invalidCovN N for invalid sequences coverage criteria
+ * @param symbolMap Map of interaction symbols to interaction names
+ * @param validSequences Valid sequences generated from SCI and coverage critereia
+ * @param invalidSequences Invalid sequences generated  from SCI and coverage critereia
+ */
 export function generateReport(
   sci: string,
   validCovN: number,
