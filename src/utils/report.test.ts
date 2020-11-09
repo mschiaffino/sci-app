@@ -38,6 +38,7 @@ describe('report', () => {
         mappedSci: 'Open.(Select|Zoom)*.Close',
       },
     ];
+
     for (const t of testParams) {
       test(`should return '${t}'`, () => {
         expect(getMappedSci(t.sci, t.symbolMap)).toBe(t.mappedSci);
@@ -87,7 +88,7 @@ describe('report', () => {
     ];
 
     for (const t of testParams) {
-      describe('', () => {
+      describe('generateReport', () => {
         const generatedReport = generateReport(
           t.sci,
           t.validCovN,
