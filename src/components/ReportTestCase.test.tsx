@@ -27,8 +27,8 @@ describe('ReportTestCase', () => {
     rerender = rendered.rerender;
   });
 
-  test('should display interactions sequence', () => {
-    expect(screen.getByText('O.S.Z.Z.C')).toBeInTheDocument();
+  test('should display interactions sequence title', () => {
+    expect(screen.getByText('Test Case O.S.Z.Z.C')).toBeInTheDocument();
   });
 
   describe('test case interactions steps', () => {

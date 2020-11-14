@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
@@ -52,52 +53,60 @@ export default function ReportTestCase({
   };
 
   return (
-    <Box>
-      <Typography variant="h6">{testCaseName}</Typography>
-      <Box display="flex" flexDirection="column" justifyContent="flex-start">
-        {testCase.interactions.map((interaction, index) => (
+    <Box width={500} marginY={2}>
+      <Card variant="outlined">
+        <Box padding={2}>
+          <Typography variant="h6">{`Test Case ${testCaseName}`}</Typography>
           <Box
             display="flex"
-            alignItems="center"
-            key={interaction.symbol + index}
+            flexDirection="column"
+            justifyContent="flex-start"
           >
-            <Checkbox
-              checked={interaction.checked}
-              onChange={(event, checked) =>
-                handleInteractionCheckChange(event, index, checked)
-              }
-            ></Checkbox>
-            <Typography>
-              {interactionText(index, interaction.symbol, symbolMap)}
-            </Typography>
+            {testCase.interactions.map((interaction, index) => (
+              <Box
+                display="flex"
+                alignItems="center"
+                key={interaction.symbol + index}
+              >
+                <Checkbox
+                  checked={interaction.checked}
+                  onChange={(event, checked) =>
+                    handleInteractionCheckChange(event, index, checked)
+                  }
+                ></Checkbox>
+                <Typography>
+                  {interactionText(index, interaction.symbol, symbolMap)}
+                </Typography>
+              </Box>
+            ))}
           </Box>
-        ))}
-      </Box>
-      <TextField
-        label="Comment"
-        multiline
-        fullWidth={true}
-        value={testCase.comment}
-        inputProps={{ 'aria-label': 'comment' }}
-        onChange={handleCommentChange}
-      />
-      <Box marginTop={2} display="flex" alignItems="center">
-        <Typography variant="subtitle1">Result</Typography>
-        <Box marginLeft={1}>
-          <ToggleButtonGroup
-            value={testCase.passed}
-            exclusive
-            onChange={handleResultChange}
-          >
-            <ToggleButton value={true} aria-label="passed">
-              <CheckIcon htmlColor={green[800]} />
-            </ToggleButton>
-            <ToggleButton value={false} aria-label="failed">
-              <CloseIcon color="error" />
-            </ToggleButton>
-          </ToggleButtonGroup>
+          <TextField
+            label="Comment"
+            multiline
+            fullWidth={true}
+            value={testCase.comment}
+            inputProps={{ 'aria-label': 'comment' }}
+            onChange={handleCommentChange}
+          />
+          <Box marginTop={2} display="flex" alignItems="center">
+            <Typography variant="subtitle1">Result</Typography>
+            <Box marginLeft={1}>
+              <ToggleButtonGroup
+                value={testCase.passed}
+                exclusive
+                onChange={handleResultChange}
+              >
+                <ToggleButton value={true} aria-label="passed">
+                  <CheckIcon htmlColor={green[800]} />
+                </ToggleButton>
+                <ToggleButton value={false} aria-label="failed">
+                  <CloseIcon color="error" />
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </Box>
+          </Box>
         </Box>
-      </Box>
+      </Card>
     </Box>
   );
 }
