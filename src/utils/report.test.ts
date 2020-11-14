@@ -1,6 +1,6 @@
 import { validate as validateUuid } from 'uuid';
 
-import { InteractionSymbolMap, Report } from '../types';
+import { Interaction, InteractionSymbolMap, Report, TestCase } from '../types';
 import {
   generateReport,
   getMappedSci,
@@ -75,14 +75,39 @@ describe('report', () => {
             invalidSequences: 1,
           },
           validSequenceTestCases: [
-            { interactions: [{ symbol: 'O' }, { symbol: 'C' }] },
+            {
+              interactions: [
+                { symbol: 'O', comment: null, checked: false },
+                { symbol: 'C', comment: null, checked: false },
+              ],
+              comment: null,
+              passed: null,
+            },
           ],
           invalidSequenceTestCases: [
-            { interactions: [{ symbol: 'C' }] },
-            { interactions: [{ symbol: 'O' }] },
-            { interactions: [{ symbol: 'S' }] },
-            { interactions: [{ symbol: 'Z' }] },
+            {
+              interactions: [{ symbol: 'C', comment: null, checked: false }],
+              comment: null,
+              passed: null,
+            },
+            {
+              interactions: [{ symbol: 'O', comment: null, checked: false }],
+              comment: null,
+              passed: null,
+            },
+            {
+              interactions: [{ symbol: 'S', comment: null, checked: false }],
+              comment: null,
+              passed: null,
+            },
+            {
+              interactions: [{ symbol: 'Z', comment: null, checked: false }],
+              comment: null,
+              passed: null,
+            },
           ],
+          comments: null,
+          passed: null,
         },
       },
     ];
@@ -113,22 +138,32 @@ describe('report', () => {
 
   describe('symbolToInteraction', () => {
     test('should return the proper interaction object', () => {
-      expect(symbolToInteraction('B')).toEqual({ symbol: 'B' });
+      const expectedInteraction: Interaction = {
+        symbol: 'B',
+        comment: null,
+        checked: false,
+      };
+      expect(symbolToInteraction('B')).toEqual(expectedInteraction);
     });
   });
 
   describe('sequenceToTestCase', () => {
     test('should should return the array of test cases', () => {
-      expect(sequenceToTestCase('A.R.C.X.T.S')).toEqual({
-        interactions: [
-          { symbol: 'A' },
-          { symbol: 'R' },
-          { symbol: 'C' },
-          { symbol: 'X' },
-          { symbol: 'T' },
-          { symbol: 'S' },
-        ],
-      });
+      const expectInteractions: Interaction[] = [
+        { symbol: 'A', comment: null, checked: false },
+        { symbol: 'R', comment: null, checked: false },
+        { symbol: 'C', comment: null, checked: false },
+        { symbol: 'X', comment: null, checked: false },
+        { symbol: 'T', comment: null, checked: false },
+        { symbol: 'S', comment: null, checked: false },
+      ];
+      const expectedTestCase: TestCase = {
+        interactions: expectInteractions,
+        comment: null,
+        passed: null,
+      };
+
+      expect(sequenceToTestCase('A.R.C.X.T.S')).toEqual(expectedTestCase);
     });
   });
 });

@@ -30,6 +30,8 @@ export function generateReport(
     },
     validSequenceTestCases: validSequences.map(sequenceToTestCase),
     invalidSequenceTestCases: invalidSequences.map(sequenceToTestCase),
+    comments: null,
+    passed: null,
   };
 }
 
@@ -53,7 +55,11 @@ export function getMappedSci(
  * @param sequences
  */
 export function sequenceToTestCase(sequence: string): TestCase {
-  return { interactions: sequence.split('.').map(symbolToInteraction) };
+  return {
+    interactions: sequence.split('.').map(symbolToInteraction),
+    comment: null,
+    passed: null,
+  };
 }
 
 /**
@@ -61,5 +67,5 @@ export function sequenceToTestCase(sequence: string): TestCase {
  * @param symbol
  */
 export function symbolToInteraction(symbol: string): Interaction {
-  return { symbol };
+  return { symbol, comment: null, checked: false };
 }

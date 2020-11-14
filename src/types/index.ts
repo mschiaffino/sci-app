@@ -10,8 +10,8 @@ export type Report = {
   coverageCriteria: CoverageCriteria;
   validSequenceTestCases: TestCase[];
   invalidSequenceTestCases: TestCase[];
-  passed?: boolean;
-  comments?: string;
+  passed: boolean | null;
+  comments: string | null;
 };
 
 export type CoverageCriteria = {
@@ -21,12 +21,12 @@ export type CoverageCriteria = {
 
 export type TestCase = {
   interactions: Interaction[];
-  comments?: string;
-  passed?: boolean;
+  comment: string | null;
+  passed: boolean | null;
 };
 
 export type Interaction = {
   symbol: string;
-  checked?: boolean;
-  comment?: string;
+  checked: boolean;
+  comment: string | null;
 };

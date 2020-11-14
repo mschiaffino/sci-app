@@ -7,11 +7,11 @@ import userEvent from '@testing-library/user-event';
 
 const testCaseMock: TestCase = {
   interactions: [
-    { symbol: 'O' },
-    { symbol: 'S' },
-    { symbol: 'Z' },
-    { symbol: 'Z' },
-    { symbol: 'C' },
+    { symbol: 'O', checked: false, comment: null },
+    { symbol: 'S', checked: false, comment: null },
+    { symbol: 'Z', checked: false, comment: null },
+    { symbol: 'Z', checked: false, comment: null },
+    { symbol: 'C', checked: false, comment: null },
   ],
 };
 
