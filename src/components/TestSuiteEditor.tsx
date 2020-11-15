@@ -11,6 +11,7 @@ import { InteractionSymbolMap } from '../types';
 import { generateReport } from '../utils/report';
 import { saveReport } from '../utils/storage';
 import { Sci } from 'sci-parser/build/sci';
+import SnackbarNotification from './SnackbarNotification';
 
 export default function TestSuiteEditor() {
   const [rawSci, setRawSci] = useState('');
@@ -20,6 +21,7 @@ export default function TestSuiteEditor() {
   const [symbols, setSymbols] = useState<string[]>([]);
   const [symbolMap, setSymbolMap] = useState<InteractionSymbolMap>({});
   const [errorMessage, setErrorMessage] = useState<string | null>();
+  const [openNotification, setOpenNotification] = useState(false);
 
   const onSciChange = (e: any) => {
     const { value } = e.target;
@@ -57,7 +59,18 @@ export default function TestSuiteEditor() {
       validSequences,
       invalidSequences
     );
+    setOpenNotification(true);
     saveReport(report);
+  };
+
+  const onNotificationClose = (
+    event?: React.SyntheticEvent,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpenNotification(false);
   };
 
   useEffect(() => {
@@ -129,6 +142,11 @@ export default function TestSuiteEditor() {
           Generate Report
         </Button>
       </Box>
+      <SnackbarNotification
+        open={openNotification}
+        onClose={onNotificationClose}
+        message={'Generating report!'}
+      />
     </Box>
   );
 }
