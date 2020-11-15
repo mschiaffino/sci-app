@@ -114,14 +114,16 @@ describe('report', () => {
 
     for (const t of testParams) {
       describe('generateReport', () => {
-        const generatedReport = generateReport(
-          t.sci,
-          t.validCovN,
-          t.invalidCovN,
-          t.symbolMap,
-          t.validSequences,
-          t.invalidSequences
-        );
+        let generatedReport: Report;
+
+        beforeEach(async () => {
+          generatedReport = await generateReport(
+            t.sci,
+            t.validCovN,
+            t.invalidCovN,
+            t.symbolMap
+          );
+        });
 
         test(`should generate the expected report`, () => {
           // Id is a random uuid, we copy it for comparison to pass

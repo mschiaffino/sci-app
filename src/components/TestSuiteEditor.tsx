@@ -29,12 +29,12 @@ export default function TestSuiteEditor() {
   };
 
   const onValidSequencesCovInputChange = (e: any) => {
-    const { value } = e.target;
+    const value = e.target.valueAsNumber;
     setValidCovN(value && value < MIN_VALID_COV_N ? MIN_VALID_COV_N : value);
   };
 
   const onInvalidSequencesCovInputChange = (e: any) => {
-    const { value } = e.target;
+    const value = e.target.valueAsNumber;
     setInvalidCovN(
       value && value < MIN_INVALID_COV_N ? MIN_INVALID_COV_N : value
     );
@@ -49,19 +49,12 @@ export default function TestSuiteEditor() {
       return;
     }
     setOpenNotification(true);
-    // TODO Compute sequences using web workers to avoid blocking the UI
-    const validSequences = parsedSci.validSequences(validCovN);
-    const invalidSequences = parsedSci.invalidSequences(invalidCovN);
-    const report = generateReport(
-      rawSci,
-      validCovN,
-      invalidCovN,
-      symbolMap,
-      validSequences,
-      invalidSequences
-    );
-    saveReport(report);
-    window.open(`/report/${report.id}`, '_blank');
+    generateReport(rawSci, validCovN, invalidCovN, symbolMap).then((report) => {
+      saveReport(report);
+      setTimeout(() => {
+        window.open(`/report/${report.id}`);
+      }, 2000);
+    });
   };
 
   const onNotificationClose = (
@@ -149,7 +142,9 @@ export default function TestSuiteEditor() {
       <SnackbarNotification
         open={openNotification}
         onClose={onNotificationClose}
-        message={'Generating report!'}
+        message={
+          "Generating report! A new tab with will display it once it's ready."
+        }
       />
     </Box>
   );

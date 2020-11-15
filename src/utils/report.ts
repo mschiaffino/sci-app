@@ -1,6 +1,9 @@
 import { v4 as uuid } from 'uuid';
 
 import { Interaction, InteractionSymbolMap, Report, TestCase } from '../types';
+import Worker from './../worker';
+
+const workerInstance = new Worker();
 
 /**
  * Generate object representation of a generated report
@@ -11,14 +14,17 @@ import { Interaction, InteractionSymbolMap, Report, TestCase } from '../types';
  * @param validSequences Valid sequences generated from SCI and coverage critereia
  * @param invalidSequences Invalid sequences generated  from SCI and coverage critereia
  */
-export function generateReport(
+export async function generateReport(
   sci: string,
   validCovN: number,
   invalidCovN: number,
-  symbolMap: InteractionSymbolMap,
-  validSequences: string[],
-  invalidSequences: string[]
-): Report {
+  symbolMap: InteractionSymbolMap
+): Promise<Report> {
+  const [validSequences, invalidSequences] = await Promise.all([
+    workerInstance.generateValidSequences(sci, validCovN),
+    workerInstance.generateInvalidSequences(sci, invalidCovN),
+  ]);
+
   return {
     id: uuid(),
     sci,
