@@ -11,7 +11,7 @@ export type Report = {
   validSequenceTestCases: TestCase[];
   invalidSequenceTestCases: TestCase[];
   passed: boolean | null;
-  comments: string | null;
+  comments: string;
 };
 
 export type CoverageCriteria = {
@@ -21,12 +21,12 @@ export type CoverageCriteria = {
 
 export type TestCase = {
   interactions: Interaction[];
-  comment: string | null;
+  comment: string;
   passed: boolean | null;
 };
 
 export type Interaction = {
   symbol: string;
   checked: boolean;
-  comment: string | null;
+  comment: string;
 };

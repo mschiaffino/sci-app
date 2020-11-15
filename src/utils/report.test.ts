@@ -77,36 +77,36 @@ describe('report', () => {
           validSequenceTestCases: [
             {
               interactions: [
-                { symbol: 'O', comment: null, checked: false },
-                { symbol: 'C', comment: null, checked: false },
+                { symbol: 'O', comment: '', checked: false },
+                { symbol: 'C', comment: '', checked: false },
               ],
-              comment: null,
+              comment: '',
               passed: null,
             },
           ],
           invalidSequenceTestCases: [
             {
-              interactions: [{ symbol: 'C', comment: null, checked: false }],
-              comment: null,
+              interactions: [{ symbol: 'C', comment: '', checked: false }],
+              comment: '',
               passed: null,
             },
             {
-              interactions: [{ symbol: 'O', comment: null, checked: false }],
-              comment: null,
+              interactions: [{ symbol: 'O', comment: '', checked: false }],
+              comment: '',
               passed: null,
             },
             {
-              interactions: [{ symbol: 'S', comment: null, checked: false }],
-              comment: null,
+              interactions: [{ symbol: 'S', comment: '', checked: false }],
+              comment: '',
               passed: null,
             },
             {
-              interactions: [{ symbol: 'Z', comment: null, checked: false }],
-              comment: null,
+              interactions: [{ symbol: 'Z', comment: '', checked: false }],
+              comment: '',
               passed: null,
             },
           ],
-          comments: null,
+          comments: '',
           passed: null,
         },
       },
@@ -140,7 +140,7 @@ describe('report', () => {
     test('should return the proper interaction object', () => {
       const expectedInteraction: Interaction = {
         symbol: 'B',
-        comment: null,
+        comment: '',
         checked: false,
       };
       expect(symbolToInteraction('B')).toEqual(expectedInteraction);
@@ -150,16 +150,16 @@ describe('report', () => {
   describe('sequenceToTestCase', () => {
     test('should should return the array of test cases', () => {
       const expectInteractions: Interaction[] = [
-        { symbol: 'A', comment: null, checked: false },
-        { symbol: 'R', comment: null, checked: false },
-        { symbol: 'C', comment: null, checked: false },
-        { symbol: 'X', comment: null, checked: false },
-        { symbol: 'T', comment: null, checked: false },
-        { symbol: 'S', comment: null, checked: false },
+        { symbol: 'A', comment: '', checked: false },
+        { symbol: 'R', comment: '', checked: false },
+        { symbol: 'C', comment: '', checked: false },
+        { symbol: 'X', comment: '', checked: false },
+        { symbol: 'T', comment: '', checked: false },
+        { symbol: 'S', comment: '', checked: false },
       ];
       const expectedTestCase: TestCase = {
         interactions: expectInteractions,
-        comment: null,
+        comment: '',
         passed: null,
       };
 
