@@ -74,6 +74,9 @@ export default function TestSuiteEditor() {
   };
 
   useEffect(() => {
+    if (!rawSci) {
+      return;
+    }
     const parsed = SciParser.parse(rawSci);
     setParsedSci(parsed);
     if (parsed) {
