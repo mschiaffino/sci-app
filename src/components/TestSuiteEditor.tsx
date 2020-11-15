@@ -48,6 +48,7 @@ export default function TestSuiteEditor() {
     if (!parsedSci) {
       return;
     }
+    setOpenNotification(true);
     // TODO Compute sequences using web workers to avoid blocking the UI
     const validSequences = parsedSci.validSequences(validCovN);
     const invalidSequences = parsedSci.invalidSequences(invalidCovN);
@@ -59,8 +60,8 @@ export default function TestSuiteEditor() {
       validSequences,
       invalidSequences
     );
-    setOpenNotification(true);
     saveReport(report);
+    window.open(`/report/${report.id}`, '_blank');
   };
 
   const onNotificationClose = (
