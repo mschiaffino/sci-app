@@ -7,6 +7,7 @@ import Box from '@material-ui/core/Box';
 import { browserHistory } from './utils/history';
 import { theme } from './theme';
 import TestSuiteEditor from './components/TestSuiteEditor';
+import ReportPage from './components/ReportPage';
 
 function App() {
   return (
@@ -15,10 +16,13 @@ function App() {
         <Box padding={3}>
           <Router history={browserHistory}>
             <Switch>
-              <Route path="/test-suite-editor">
+              <Route path="/editor">
                 <TestSuiteEditor />
               </Route>
-              <Redirect from="*" to="/test-suite-editor"></Redirect>
+              <Route path="/report/:reportId">
+                <ReportPage />
+              </Route>
+              <Redirect from="*" to="/editor"></Redirect>
             </Switch>
           </Router>
         </Box>
