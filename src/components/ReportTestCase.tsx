@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
+import throttle from 'lodash.throttle';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
@@ -26,6 +27,12 @@ export default function ReportTestCase({
 }: Props) {
   const testCaseName = testCase.interactions.map((i) => i.symbol).join('.');
 
+  // eslint-disable-next-line
+  const throttledOnChange = useCallback(
+    throttle(onChange, 500, { leading: true }),
+    []
+  );
+
   const handleInteractionCheckChange = (
     event: any,
     index: number,
@@ -33,7 +40,7 @@ export default function ReportTestCase({
   ) => {
     const updatedTestCase: TestCase = { ...testCase };
     updatedTestCase.interactions[index].checked = checked;
-    onChange(updatedTestCase);
+    throttledOnChange(updatedTestCase);
   };
 
   const handleCommentChange = (event: any) => {
@@ -41,7 +48,7 @@ export default function ReportTestCase({
       ...testCase,
       comment: event.target.value,
     };
-    onChange(updatedTestCase);
+    throttledOnChange(updatedTestCase);
   };
 
   const handleResultChange = (
@@ -49,7 +56,7 @@ export default function ReportTestCase({
     passed: boolean
   ) => {
     const updatedTestCase: TestCase = { ...testCase, passed };
-    onChange(updatedTestCase);
+    throttledOnChange(updatedTestCase);
   };
 
   return (
@@ -84,7 +91,7 @@ export default function ReportTestCase({
             label="Comment"
             multiline
             fullWidth={true}
-            value={testCase.comment}
+            defaultValue={testCase.comment}
             inputProps={{ 'aria-label': 'comment' }}
             onChange={handleCommentChange}
           />
