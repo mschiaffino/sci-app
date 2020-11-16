@@ -65,8 +65,9 @@ export default function TestSuiteEditor() {
     generateReport(rawSci, validCovN, invalidCovN, symbolMap).then((report) => {
       saveReport(report);
       setTimeout(() => {
+        setOpenNotification(false);
         window.open(`/report/${report.id}`);
-      }, 2000);
+      }, 1000);
     });
   };
 
