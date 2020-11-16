@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 
@@ -29,48 +30,54 @@ export default function SymbolMapEditor({
   const classes = useStyles();
 
   return (
-    <Box maxHeight={370} overflow="auto">
-      <Typography variant="h5">Symbol Map</Typography>
-      <List>
-        <ListItem className={classes.listItem}>
-          <Box display="flex" alignItems="center">
-            <Box
-              width={60}
-              marginRight={8}
-              display="flex"
-              justifyContent="center"
-            >
-              <Typography>Symbol</Typography>
-            </Box>
-            <Typography>Interaction</Typography>
-          </Box>
-        </ListItem>
-        {symbols.map((symbol) => (
-          <ListItem key={symbol} className={classes.listItem}>
-            <Box display="flex" alignItems="center" flexGrow={1}>
-              <Box
-                width={60}
-                marginRight={8}
-                display="flex"
-                justifyContent="center"
-              >
-                <Typography>{symbol}</Typography>
+    <Box>
+      <Box marginBottom={1}>
+        <Typography variant="h5">Symbol Map</Typography>
+      </Box>
+      <Card variant="outlined">
+        <Box maxHeight={410} overflow="auto">
+          <List>
+            <ListItem className={classes.listItem}>
+              <Box display="flex" alignItems="center">
+                <Box
+                  width={60}
+                  marginRight={8}
+                  display="flex"
+                  justifyContent="center"
+                >
+                  <Typography>Symbol</Typography>
+                </Box>
+                <Typography>Interaction</Typography>
               </Box>
-              <Box flexGrow={1}>
-                <TextField
-                  variant="outlined"
-                  defaultValue={symbolMap[symbol]}
-                  onChange={(e) =>
-                    onInteractionInputChange(symbol, e.target.value)
-                  }
-                  inputProps={{ 'data-testid': `input-${symbol}` }}
-                  fullWidth
-                ></TextField>
-              </Box>
-            </Box>
-          </ListItem>
-        ))}
-      </List>
+            </ListItem>
+            {symbols.map((symbol) => (
+              <ListItem key={symbol} className={classes.listItem}>
+                <Box display="flex" alignItems="center" flexGrow={1}>
+                  <Box
+                    width={60}
+                    marginRight={8}
+                    display="flex"
+                    justifyContent="center"
+                  >
+                    <Typography>{symbol}</Typography>
+                  </Box>
+                  <Box flexGrow={1} paddingRight={1}>
+                    <TextField
+                      variant="outlined"
+                      defaultValue={symbolMap[symbol]}
+                      onChange={(e) =>
+                        onInteractionInputChange(symbol, e.target.value)
+                      }
+                      inputProps={{ 'data-testid': `input-${symbol}` }}
+                      fullWidth
+                    ></TextField>
+                  </Box>
+                </Box>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Card>
     </Box>
   );
 }
