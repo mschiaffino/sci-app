@@ -26,7 +26,7 @@ export default function ReportHeeader({ report }: Props) {
   return (
     <Box>
       <Box display="flex" alignItems="center" marginBottom={1}>
-        <Typography variant="h3">Report</Typography>
+        <Typography variant="h4">Report</Typography>
         <Box marginLeft={3}>
           {visiblePdfIcon && (
             <PictureAsPdfIcon
