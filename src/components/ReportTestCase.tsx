@@ -80,6 +80,7 @@ export default function ReportTestCase({
                   onChange={(event, checked) =>
                     handleInteractionCheckChange(event, index, checked)
                   }
+                  color="primary"
                 ></Checkbox>
                 <Typography>
                   {interactionText(index, interaction.symbol, symbolMap)}
