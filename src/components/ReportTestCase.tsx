@@ -88,6 +88,7 @@ export default function ReportTestCase({
             display="flex"
             flexDirection="column"
             justifyContent="flex-start"
+            marginBottom={1}
           >
             {testCase.interactions.map((interaction, index) => (
               <Box
@@ -110,11 +111,13 @@ export default function ReportTestCase({
           </Box>
           <TextField
             label="Comment"
+            variant="outlined"
             multiline
             fullWidth={true}
             defaultValue={testCase.comment}
             inputProps={{ 'aria-label': 'comment' }}
             onChange={handleCommentChange}
+            InputLabelProps={{ shrink: true }}
           />
           <Box marginTop={2} display="flex" alignItems="center">
             <Typography variant="subtitle1">Result</Typography>
