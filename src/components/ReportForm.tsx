@@ -30,7 +30,7 @@ export default function ReportForm({ report, onReportUpdate }: Props) {
   };
 
   return (
-    <Box marginTop={4}>
+    <Box marginTop={6}>
       <Typography variant="h4">Test cases for valid sequences</Typography>
       <Box marginLeft={1}>
         {report.validSequenceTestCases.length === 0 ? (
@@ -48,22 +48,24 @@ export default function ReportForm({ report, onReportUpdate }: Props) {
           ))
         )}
       </Box>
-      <Typography variant="h4">Test cases for invalid sequences</Typography>
-      <Box marginLeft={1}>
-        {report.invalidSequenceTestCases.length === 0 ? (
-          <Typography>No test cases</Typography>
-        ) : (
-          report.invalidSequenceTestCases.map((testCase, index) => (
-            <ReportTestCase
-              testCase={testCase}
-              symbolMap={report.symbolMap}
-              onChange={(testCase) =>
-                onTestCaseChange(index, 'invalid', testCase)
-              }
-              key={testCaseName(testCase)}
-            ></ReportTestCase>
-          ))
-        )}
+      <Box marginTop={6}>
+        <Typography variant="h4">Test cases for invalid sequences</Typography>
+        <Box marginLeft={1}>
+          {report.invalidSequenceTestCases.length === 0 ? (
+            <Typography>No test cases</Typography>
+          ) : (
+            report.invalidSequenceTestCases.map((testCase, index) => (
+              <ReportTestCase
+                testCase={testCase}
+                symbolMap={report.symbolMap}
+                onChange={(testCase) =>
+                  onTestCaseChange(index, 'invalid', testCase)
+                }
+                key={testCaseName(testCase)}
+              ></ReportTestCase>
+            ))
+          )}
+        </Box>
       </Box>
     </Box>
   );
