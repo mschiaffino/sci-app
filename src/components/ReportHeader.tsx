@@ -37,13 +37,7 @@ export default function ReportHeeader({ report }: Props) {
           )}
         </Box>
       </Box>
-      <Box display="flex" alignItems="center" flexWrap="wrap" marginBottom={2}>
-        <Box width={200}>
-          <Typography variant="h5">SCI:&nbsp;</Typography>
-        </Box>
-        <Typography>{report.sci}</Typography>
-      </Box>
-      {report.mappedSci !== report.sci && (
+      <Box paddingLeft={2}>
         <Box
           display="flex"
           alignItems="center"
@@ -51,21 +45,39 @@ export default function ReportHeeader({ report }: Props) {
           marginBottom={2}
         >
           <Box width={200}>
-            <Typography variant="h5">Mapped SCI:&nbsp;</Typography>
+            <Typography variant="h5">SCI:</Typography>
           </Box>
-          <Typography>{report.mappedSci}</Typography>
+          <Typography>{report.sci}</Typography>
         </Box>
-      )}
-      <Box display="flex" alignItems="center" flexWrap="wrap" marginBottom={2}>
-        <Box width={200}>
-          <Typography variant="h5">Coverage criteria:&nbsp;</Typography>
-        </Box>
-        <Box display="flex">
-          <Typography>{`Base+${report.coverageCriteria.validSequences}`}</Typography>
-          &nbsp;|&nbsp;
-          <Typography>
-            {`Invalid-${report.coverageCriteria.invalidSequences}`}
-          </Typography>
+        {report.mappedSci !== report.sci && (
+          <Box
+            display="flex"
+            alignItems="center"
+            flexWrap="wrap"
+            marginBottom={2}
+          >
+            <Box width={200}>
+              <Typography variant="h5">Mapped SCI:</Typography>
+            </Box>
+            <Typography>{report.mappedSci}</Typography>
+          </Box>
+        )}
+        <Box
+          display="flex"
+          alignItems="center"
+          flexWrap="wrap"
+          marginBottom={2}
+        >
+          <Box width={200}>
+            <Typography variant="h5">Coverage criteria:</Typography>
+          </Box>
+          <Box display="flex">
+            <Typography>{`Base+${report.coverageCriteria.validSequences}`}</Typography>
+            &nbsp;|&nbsp;
+            <Typography>
+              {`Invalid-${report.coverageCriteria.invalidSequences}`}
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </Box>
