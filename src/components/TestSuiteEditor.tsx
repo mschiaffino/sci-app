@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 import { SciParser } from 'sci-parser';
 import SymbolMapEditor from './SymbolMapEditor';
@@ -12,6 +13,7 @@ import { generateReport } from '../utils/report';
 import { saveReport } from '../utils/storage';
 import { Sci } from 'sci-parser/build/sci';
 import SnackbarNotification from './SnackbarNotification';
+import Tooltip from '@material-ui/core/Tooltip';
 
 export default function TestSuiteEditor() {
   const [rawSci, setRawSci] = useState('');
@@ -94,10 +96,19 @@ export default function TestSuiteEditor() {
           error={!!rawSci && !!errorMessage}
           helperText={rawSci && errorMessage}
         />
-        <Box marginTop={3} marginBottom={1}>
+        <Box marginTop={4} marginBottom={2} display="flex" alignItems="center">
           <Typography variant="h5">Coverage Criteria</Typography>
+          <Box marginLeft={2}>
+            <Tooltip
+              title="High numbers could require a long time to generate the report"
+              placement="right"
+              arrow
+            >
+              <ErrorOutlineIcon />
+            </Tooltip>
+          </Box>
         </Box>
-        <Box marginBottom={1}>
+        <Box marginBottom={1} display="flex">
           <TextField
             label="Valid Sequences"
             aria-label="Valid Sequences"
@@ -109,19 +120,19 @@ export default function TestSuiteEditor() {
               min: MIN_VALID_COV_N,
             }}
           />
-        </Box>
-        <Box marginBottom={1}>
-          <TextField
-            label="Invalid Sequences"
-            aria-label="Invalid Sequences"
-            variant="outlined"
-            type="number"
-            value={invalidCovN}
-            onChange={onInvalidSequencesCovInputChange}
-            inputProps={{
-              min: MIN_INVALID_COV_N,
-            }}
-          />
+          <Box marginLeft={2}>
+            <TextField
+              label="Invalid Sequences"
+              aria-label="Invalid Sequences"
+              variant="outlined"
+              type="number"
+              value={invalidCovN}
+              onChange={onInvalidSequencesCovInputChange}
+              inputProps={{
+                min: MIN_INVALID_COV_N,
+              }}
+            />
+          </Box>
         </Box>
         <Box marginTop={3}>
           <SymbolMapEditor
