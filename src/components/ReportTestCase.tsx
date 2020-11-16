@@ -11,8 +11,27 @@ import TextField from '@material-ui/core/TextField';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import green from '@material-ui/core/colors/green';
+import red from '@material-ui/core/colors/red';
 
 import { InteractionSymbolMap, TestCase } from '../types';
+import { makeStyles } from '@material-ui/core';
+
+const useStylese = makeStyles({
+  activePassedToggle: {
+    '&.MuiToggleButton-root': {
+      '&.Mui-selected': {
+        backgroundColor: green[800],
+      },
+    },
+  },
+  activeFailedToggle: {
+    '&.MuiToggleButton-root': {
+      '&.Mui-selected': {
+        backgroundColor: red[800],
+      },
+    },
+  },
+});
 
 interface Props {
   testCase: TestCase;
@@ -25,6 +44,7 @@ export default function ReportTestCase({
   symbolMap,
   onChange,
 }: Props) {
+  const classes = useStylese();
   const testCaseName = testCase.interactions.map((i) => i.symbol).join('.');
 
   // eslint-disable-next-line
@@ -98,17 +118,28 @@ export default function ReportTestCase({
           />
           <Box marginTop={2} display="flex" alignItems="center">
             <Typography variant="subtitle1">Result</Typography>
-            <Box marginLeft={1}>
+            <Box marginLeft={3}>
               <ToggleButtonGroup
                 value={testCase.passed}
                 exclusive
                 onChange={handleResultChange}
               >
-                <ToggleButton value={true} aria-label="passed">
-                  <CheckIcon htmlColor={green[800]} />
+                <ToggleButton
+                  value={true}
+                  selected={testCase.passed || undefined}
+                  aria-label="passed"
+                  classes={{ selected: classes.activePassedToggle }}
+                >
+                  <CheckIcon htmlColor={testCase.passed ? 'white' : ''} />
                 </ToggleButton>
-                <ToggleButton value={false} aria-label="failed">
-                  <CloseIcon color="error" />
+                <ToggleButton
+                  value={false}
+                  aria-label="failed"
+                  classes={{ selected: classes.activeFailedToggle }}
+                >
+                  <CloseIcon
+                    htmlColor={testCase.passed === false ? 'white' : ''}
+                  />
                 </ToggleButton>
               </ToggleButtonGroup>
             </Box>
