@@ -149,6 +149,8 @@ export default function TestSuiteEditor() {
                 min: MIN_VALID_COV_N,
               }}
               fullWidth
+              error={isNaN(validCovN)}
+              helperText={isNaN(validCovN) && 'Required'}
             />
           </Box>
           <Box flexGrow={1} marginLeft={2}>
@@ -163,6 +165,8 @@ export default function TestSuiteEditor() {
                 min: MIN_INVALID_COV_N,
               }}
               fullWidth
+              error={isNaN(invalidCovN)}
+              helperText={isNaN(invalidCovN) && 'Required'}
             />
           </Box>
         </Box>
