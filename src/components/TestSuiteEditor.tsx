@@ -171,7 +171,7 @@ export default function TestSuiteEditor() {
             />
           </Box>
         </Box>
-        <Box marginTop={3} width={450}>
+        <Box marginTop={4} width={450}>
           <SymbolMapEditor
             symbols={symbols}
             symbolMap={symbolMap}
