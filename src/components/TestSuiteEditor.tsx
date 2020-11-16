@@ -35,16 +35,22 @@ export default function TestSuiteEditor() {
 
   const onValidSequencesCovInputChange = (e: any) => {
     const value = e.target.valueAsNumber;
-    setValidCovN(
-      value && value < MIN_VALID_COV_N ? MIN_VALID_COV_N : value || ''
-    );
+    if (typeof value === 'number') {
+      setValidCovN(Math.max(MIN_VALID_COV_N, value));
+    } else {
+      // Could be empty string when input value gets deleted
+      setValidCovN(value);
+    }
   };
 
   const onInvalidSequencesCovInputChange = (e: any) => {
     const value = e.target.valueAsNumber;
-    setInvalidCovN(
-      value && value < MIN_INVALID_COV_N ? MIN_INVALID_COV_N : value || ''
-    );
+    if (typeof value === 'number') {
+      setInvalidCovN(Math.max(MIN_INVALID_COV_N, value));
+    } else {
+      // Could be empty string when input value gets deleted
+      setInvalidCovN(value);
+    }
   };
 
   const onInteractionInputChange = (symbol: string, interaction: string) => {
@@ -86,6 +92,9 @@ export default function TestSuiteEditor() {
     setErrorMessage(SciParser.syntaxErrorMessage(rawSci));
   }, [rawSci, validCovN, invalidCovN]);
 
+  const buttonDisabled =
+    !parsedSci || (!validCovN && validCovN !== 0) || !invalidCovN;
+
   return (
     <Box display="flex" flexDirection="column" maxWidth={700}>
       <Box marginBottom={2}>
@@ -110,7 +119,7 @@ export default function TestSuiteEditor() {
             color="primary"
             variant="contained"
             onClick={onGenerateReportClick}
-            disabled={!parsedSci || !validCovN || !invalidCovN}
+            disabled={buttonDisabled}
           >
             Generate Report
           </Button>
