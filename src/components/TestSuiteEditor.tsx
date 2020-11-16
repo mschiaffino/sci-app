@@ -119,7 +119,7 @@ export default function TestSuiteEditor() {
           <Typography variant="h5">Coverage Criteria</Typography>
           <Box marginLeft={2}>
             <Tooltip
-              title="High numbers could require a long time to generate the report"
+              title="High values could require a long time to generate the report"
               placement="right"
               arrow
             >
