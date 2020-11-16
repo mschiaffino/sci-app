@@ -2,6 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import ReportHeader from './ReportHeader';
+import { Report } from '../types';
 
 describe('ReportHeader', () => {
   beforeEach(() => {
@@ -13,7 +14,9 @@ describe('ReportHeader', () => {
   });
 
   test('should display mapped SCI', () => {
-    expect(screen.getByText(reportMock.mappedSci)).toBeInTheDocument();
+    expect(
+      screen.getByText(reportMock.mappedSci as string)
+    ).toBeInTheDocument();
   });
 
   describe('coverage criteria', () => {
@@ -33,7 +36,7 @@ describe('ReportHeader', () => {
   });
 });
 
-const reportMock = {
+const reportMock: Report = {
   id: 'this should be replaced before equality comparison',
   sci: 'O.(S|Z)*.C',
   symbolMap: {
@@ -48,12 +51,37 @@ const reportMock = {
     invalidSequences: 1,
   },
   validSequenceTestCases: [
-    { interactions: [{ symbol: 'O' }, { symbol: 'C' }] },
+    {
+      interactions: [
+        { symbol: 'O', checked: false, comment: '' },
+        { symbol: 'C', checked: false, comment: '' },
+      ],
+      comment: '',
+      passed: null,
+    },
   ],
   invalidSequenceTestCases: [
-    { interactions: [{ symbol: 'C' }] },
-    { interactions: [{ symbol: 'O' }] },
-    { interactions: [{ symbol: 'S' }] },
-    { interactions: [{ symbol: 'Z' }] },
+    {
+      interactions: [{ symbol: 'C', checked: false, comment: '' }],
+      comment: '',
+      passed: null,
+    },
+    {
+      interactions: [{ symbol: 'O', checked: false, comment: '' }],
+      comment: '',
+      passed: null,
+    },
+    {
+      interactions: [{ symbol: 'S', checked: false, comment: '' }],
+      comment: '',
+      passed: null,
+    },
+    {
+      interactions: [{ symbol: 'Z', checked: false, comment: '' }],
+      comment: '',
+      passed: null,
+    },
   ],
+  comments: '',
+  passed: null,
 };
