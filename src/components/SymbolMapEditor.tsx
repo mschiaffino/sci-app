@@ -7,6 +7,13 @@ import List from '@material-ui/core/List';
 import { InteractionSymbolMap } from '../types';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  listItem: {
+    paddingRight: 0,
+  },
+});
 
 interface Props {
   symbols: string[];
@@ -19,11 +26,13 @@ export default function SymbolMapEditor({
   symbolMap,
   onInteractionInputChange,
 }: Props) {
+  const classes = useStyles();
+
   return (
-    <Box>
+    <Box maxHeight={370} overflow="auto">
       <Typography variant="h5">Symbol Map</Typography>
       <List>
-        <ListItem>
+        <ListItem className={classes.listItem}>
           <Box display="flex" alignItems="center">
             <Box
               width={60}
@@ -37,8 +46,8 @@ export default function SymbolMapEditor({
           </Box>
         </ListItem>
         {symbols.map((symbol) => (
-          <ListItem key={symbol}>
-            <Box display="flex" alignItems="center">
+          <ListItem key={symbol} className={classes.listItem}>
+            <Box display="flex" alignItems="center" flexGrow={1}>
               <Box
                 width={60}
                 marginRight={8}
@@ -47,14 +56,17 @@ export default function SymbolMapEditor({
               >
                 <Typography>{symbol}</Typography>
               </Box>
-              <TextField
-                variant="outlined"
-                defaultValue={symbolMap[symbol]}
-                onChange={(e) =>
-                  onInteractionInputChange(symbol, e.target.value)
-                }
-                inputProps={{ 'data-testid': `input-${symbol}` }}
-              ></TextField>
+              <Box flexGrow={1}>
+                <TextField
+                  variant="outlined"
+                  defaultValue={symbolMap[symbol]}
+                  onChange={(e) =>
+                    onInteractionInputChange(symbol, e.target.value)
+                  }
+                  inputProps={{ 'data-testid': `input-${symbol}` }}
+                  fullWidth
+                ></TextField>
+              </Box>
             </Box>
           </ListItem>
         ))}

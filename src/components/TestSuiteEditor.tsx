@@ -28,17 +28,22 @@ export default function TestSuiteEditor() {
   const onSciChange = (e: any) => {
     const { value } = e.target;
     setRawSci(value);
+    if (!value) {
+      setParsedSci(null);
+    }
   };
 
   const onValidSequencesCovInputChange = (e: any) => {
     const value = e.target.valueAsNumber;
-    setValidCovN(value && value < MIN_VALID_COV_N ? MIN_VALID_COV_N : value);
+    setValidCovN(
+      value && value < MIN_VALID_COV_N ? MIN_VALID_COV_N : value || ''
+    );
   };
 
   const onInvalidSequencesCovInputChange = (e: any) => {
     const value = e.target.valueAsNumber;
     setInvalidCovN(
-      value && value < MIN_INVALID_COV_N ? MIN_INVALID_COV_N : value
+      value && value < MIN_INVALID_COV_N ? MIN_INVALID_COV_N : value || ''
     );
   };
 
@@ -87,15 +92,29 @@ export default function TestSuiteEditor() {
         <Typography variant="h4">Test Suite Editor</Typography>
       </Box>
       <Box marginBottom={1}>
-        <TextField
-          label="SCI Regex"
-          aria-label="SCI Regex"
-          variant="outlined"
-          placeholder="Please enter a SCI Regex"
-          onChange={onSciChange}
-          error={!!rawSci && !!errorMessage}
-          helperText={rawSci && errorMessage}
-        />
+        <Box display="flex">
+          <Box marginRight={2} width={450}>
+            <TextField
+              label="SCI Regex"
+              aria-label="SCI Regex"
+              variant="outlined"
+              placeholder="Please enter a SCI Regex"
+              onChange={onSciChange}
+              error={!!rawSci && !!errorMessage}
+              helperText={rawSci && errorMessage}
+              fullWidth
+            />
+          </Box>
+
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={onGenerateReportClick}
+            disabled={!parsedSci || !validCovN || !invalidCovN}
+          >
+            Generate Report
+          </Button>
+        </Box>
         <Box marginTop={4} marginBottom={2} display="flex" alignItems="center">
           <Typography variant="h5">Coverage Criteria</Typography>
           <Box marginLeft={2}>
@@ -108,19 +127,22 @@ export default function TestSuiteEditor() {
             </Tooltip>
           </Box>
         </Box>
-        <Box marginBottom={1} display="flex">
-          <TextField
-            label="Valid Sequences"
-            aria-label="Valid Sequences"
-            variant="outlined"
-            type="number"
-            value={validCovN}
-            onChange={onValidSequencesCovInputChange}
-            inputProps={{
-              min: MIN_VALID_COV_N,
-            }}
-          />
-          <Box marginLeft={2}>
+        <Box marginBottom={1} display="flex" width={450}>
+          <Box flexGrow={1}>
+            <TextField
+              label="Valid Sequences"
+              aria-label="Valid Sequences"
+              variant="outlined"
+              type="number"
+              value={validCovN}
+              onChange={onValidSequencesCovInputChange}
+              inputProps={{
+                min: MIN_VALID_COV_N,
+              }}
+              fullWidth
+            />
+          </Box>
+          <Box flexGrow={1} marginLeft={2}>
             <TextField
               label="Invalid Sequences"
               aria-label="Invalid Sequences"
@@ -131,24 +153,17 @@ export default function TestSuiteEditor() {
               inputProps={{
                 min: MIN_INVALID_COV_N,
               }}
+              fullWidth
             />
           </Box>
         </Box>
-        <Box marginTop={3}>
+        <Box marginTop={3} width={450}>
           <SymbolMapEditor
             symbols={symbols}
             symbolMap={symbolMap}
             onInteractionInputChange={onInteractionInputChange}
           />
         </Box>
-        <Button
-          color="primary"
-          variant="contained"
-          onClick={onGenerateReportClick}
-          disabled={!parsedSci}
-        >
-          Generate Report
-        </Button>
       </Box>
       <SnackbarNotification
         open={openNotification}
