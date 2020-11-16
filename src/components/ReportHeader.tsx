@@ -71,9 +71,8 @@ export default function ReportHeeader({ report }: Props) {
           <Box width={200}>
             <Typography variant="h5">Coverage criteria:</Typography>
           </Box>
-          <Box display="flex">
+          <Box display="flex" flexDirection="column">
             <Typography>{`Base+${report.coverageCriteria.validSequences}`}</Typography>
-            &nbsp;|&nbsp;
             <Typography>
               {`Invalid-${report.coverageCriteria.invalidSequences}`}
             </Typography>
