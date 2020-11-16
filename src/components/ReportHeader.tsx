@@ -12,18 +12,29 @@ interface Props {
 export default function ReportHeeader({ report }: Props) {
   return (
     <Box>
-      <Box display="flex" alignItems="center" flexWrap="wrap">
-        <Typography variant="h5">SCI:&nbsp;</Typography>
+      <Box display="flex" alignItems="center" flexWrap="wrap" marginBottom={2}>
+        <Box width={200}>
+          <Typography variant="h5">SCI:&nbsp;</Typography>
+        </Box>
         <Typography>{report.sci}</Typography>
       </Box>
       {report.mappedSci !== report.sci && (
-        <Box display="flex" alignItems="center" flexWrap="wrap">
-          <Typography variant="h5">Mapped SCI:&nbsp;</Typography>
+        <Box
+          display="flex"
+          alignItems="center"
+          flexWrap="wrap"
+          marginBottom={2}
+        >
+          <Box width={200}>
+            <Typography variant="h5">Mapped SCI:&nbsp;</Typography>
+          </Box>
           <Typography>{report.mappedSci}</Typography>
         </Box>
       )}
-      <Box display="flex" alignItems="center" flexWrap="wrap">
-        <Typography variant="h6">Coverage criteria:&nbsp;</Typography>
+      <Box display="flex" alignItems="center" flexWrap="wrap" marginBottom={2}>
+        <Box width={200}>
+          <Typography variant="h5">Coverage criteria:&nbsp;</Typography>
+        </Box>
         <Box display="flex">
           <Typography>{`Base+${report.coverageCriteria.validSequences}`}</Typography>
           &nbsp;|&nbsp;
