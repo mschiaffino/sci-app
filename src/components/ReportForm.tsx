@@ -30,7 +30,7 @@ export default function ReportForm({ report, onReportUpdate }: Props) {
   };
 
   return (
-    <Box marginTop={6}>
+    <Box marginTop={1}>
       <Typography variant="h5">Test cases for valid sequences</Typography>
       <Box marginLeft={1}>
         {report.validSequenceTestCases.length === 0 ? (
@@ -49,7 +49,7 @@ export default function ReportForm({ report, onReportUpdate }: Props) {
           ))
         )}
       </Box>
-      <Box marginTop={6}>
+      <Box marginTop={1}>
         <Typography variant="h5">Test cases for invalid sequences</Typography>
         <Box marginLeft={1}>
           {report.invalidSequenceTestCases.length === 0 ? (

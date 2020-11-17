@@ -38,6 +38,14 @@ const useStylese = makeStyles({
     paddingTop: 0,
     paddingBottom: 0,
   },
+  commentInput: {
+    flexGrow: 1,
+    '& > *': {
+      flexGrow: 1,
+      display: 'flex',
+      alignItems: 'flex-start',
+    },
+  },
 });
 
 interface Props {
@@ -99,7 +107,7 @@ export default function ReportTestCase({
           >
             <Typography variant="h6">{`${capitalize(
               testCaseType
-            )} Test Case ${testCaseName}`}</Typography>
+            )} test case ${testCaseName}`}</Typography>
             <Box marginLeft={3}>
               <Tooltip title="Result" placement="top" arrow>
                 <ToggleButtonGroup
@@ -156,7 +164,7 @@ export default function ReportTestCase({
                 </Box>
               ))}
             </Box>
-            <Box marginLeft={2} width={400}>
+            <Box marginLeft={2} width={400} display="flex">
               <TextField
                 label="Comments"
                 variant="outlined"
@@ -167,6 +175,7 @@ export default function ReportTestCase({
                 inputProps={{ 'aria-label': 'comment' }}
                 onChange={handleCommentChange}
                 InputLabelProps={{ shrink: true }}
+                className={classes.commentInput}
               />
             </Box>
           </Box>
