@@ -7,12 +7,14 @@ import userEvent from '@testing-library/user-event';
 
 const testCaseMock: TestCase = {
   interactions: [
-    { symbol: 'O', checked: false, comment: null },
-    { symbol: 'S', checked: false, comment: null },
-    { symbol: 'Z', checked: false, comment: null },
-    { symbol: 'Z', checked: false, comment: null },
-    { symbol: 'C', checked: false, comment: null },
+    { symbol: 'O', checked: false, comment: '' },
+    { symbol: 'S', checked: false, comment: '' },
+    { symbol: 'Z', checked: false, comment: '' },
+    { symbol: 'Z', checked: false, comment: '' },
+    { symbol: 'C', checked: false, comment: '' },
   ],
+  comment: '',
+  passed: null,
 };
 
 describe('ReportTestCase', () => {
