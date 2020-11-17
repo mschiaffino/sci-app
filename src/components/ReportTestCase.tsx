@@ -12,9 +12,9 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
+import { capitalize, makeStyles } from '@material-ui/core';
 
 import { InteractionSymbolMap, TestCase } from '../types';
-import { makeStyles } from '@material-ui/core';
 
 const useStylese = makeStyles({
   activePassedToggle: {
@@ -37,12 +37,14 @@ interface Props {
   testCase: TestCase;
   symbolMap?: InteractionSymbolMap;
   onChange: (testCase: TestCase) => void;
+  testCaseType: 'valid' | 'invalid';
 }
 
 export default function ReportTestCase({
   testCase,
   symbolMap,
   onChange,
+  testCaseType,
 }: Props) {
   const classes = useStylese();
   const testCaseName = testCase.interactions.map((i) => i.symbol).join('.');
@@ -83,7 +85,9 @@ export default function ReportTestCase({
     <Box width={500} marginY={2}>
       <Card variant="outlined">
         <Box padding={2}>
-          <Typography variant="h6">{`Test Case ${testCaseName}`}</Typography>
+          <Typography variant="h6">{`${capitalize(
+            testCaseType
+          )} Test Case ${testCaseName}`}</Typography>
           <Box
             display="flex"
             flexDirection="column"

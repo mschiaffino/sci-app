@@ -22,13 +22,17 @@ describe('ReportTestCase', () => {
 
   beforeEach(() => {
     rendered = render(
-      <ReportTestCase testCase={testCaseMock} onChange={onChangeMock} />
+      <ReportTestCase
+        testCase={testCaseMock}
+        onChange={onChangeMock}
+        testCaseType="valid"
+      />
     );
     rerender = rendered.rerender;
   });
 
   test('should display interactions sequence title', () => {
-    expect(screen.getByText('Test Case O.S.Z.Z.C')).toBeInTheDocument();
+    expect(screen.getByText('Valid Test Case O.S.Z.Z.C')).toBeInTheDocument();
   });
 
   describe('test case interactions steps', () => {
@@ -58,6 +62,7 @@ describe('ReportTestCase', () => {
           testCase={testCaseMock}
           symbolMap={symbolMap}
           onChange={onChangeMock}
+          testCaseType="valid"
         />
       );
 
@@ -128,6 +133,7 @@ describe('ReportTestCase', () => {
         <ReportTestCase
           testCase={testCaseWithComment}
           onChange={onChangeMock}
+          testCaseType="valid"
         />
       );
 

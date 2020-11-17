@@ -43,6 +43,7 @@ export default function ReportForm({ report, onReportUpdate }: Props) {
               onChange={(testCase) =>
                 onTestCaseChange(index, 'valid', testCase)
               }
+              testCaseType="valid"
               key={testCaseName(testCase)}
             ></ReportTestCase>
           ))
@@ -61,6 +62,7 @@ export default function ReportForm({ report, onReportUpdate }: Props) {
                 onChange={(testCase) =>
                   onTestCaseChange(index, 'invalid', testCase)
                 }
+                testCaseType="invalid"
                 key={testCaseName(testCase)}
               ></ReportTestCase>
             ))
