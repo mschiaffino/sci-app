@@ -9997,9 +9997,9 @@ schema-utils@^3.0.0:
     ajv-keywords "^3.5.2"
 
 sci-parser@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/sci-parser/-/sci-parser-2.0.1.tgz#453ae5ce3a894b3b76d10a5d10cc0eb16bce6bb3"
-  integrity sha512-66OxptNrHcRAiBx7nDG3gwvrW2P4iWpN7kTzRXFjMXS5u449I+CdA4k5GjadxPlPG3dZyIk7DX5mwHm1pEmYUQ==
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/sci-parser/-/sci-parser-2.0.2.tgz#50a33e8ceb9aa1c058312fb4f9ea1fec3b18f9a7"
+  integrity sha512-HdqHOF5142CZjbk6mZfFZAPiWBTSrxuFIPDIoFN39diOQOqTUtYMpjC5pVBEgzxJEXBUGGwp/4u6hl0u55qEHA==
   dependencies:
     ret "^0.3.1"
 
