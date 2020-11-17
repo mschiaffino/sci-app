@@ -12,7 +12,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
-import { capitalize, makeStyles } from '@material-ui/core';
+import { capitalize, makeStyles, Tooltip } from '@material-ui/core';
 
 import { InteractionSymbolMap, TestCase } from '../types';
 
@@ -33,6 +33,10 @@ const useStylese = makeStyles({
   },
   avoidPageBreakInside: {
     pageBreakInside: 'avoid',
+  },
+  checkbox: {
+    paddingTop: 0,
+    paddingBottom: 0,
   },
 });
 
@@ -85,73 +89,85 @@ export default function ReportTestCase({
   };
 
   return (
-    <Box width={500} marginY={2} className={classes.avoidPageBreakInside}>
+    <Box width={800} marginY={1} className={classes.avoidPageBreakInside}>
       <Card variant="outlined">
-        <Box padding={2}>
-          <Typography variant="h6">{`${capitalize(
-            testCaseType
-          )} Test Case ${testCaseName}`}</Typography>
+        <Box padding={1}>
           <Box
             display="flex"
-            flexDirection="column"
-            justifyContent="flex-start"
-            marginBottom={1}
+            justifyContent="space-between"
+            alignItems="center"
           >
-            {testCase.interactions.map((interaction, index) => (
-              <Box
-                display="flex"
-                alignItems="center"
-                key={interaction.symbol + index}
-              >
-                <Checkbox
-                  checked={interaction.checked}
-                  onChange={(event, checked) =>
-                    handleInteractionCheckChange(event, index, checked)
-                  }
-                  color="primary"
-                ></Checkbox>
-                <Typography>
-                  {interactionText(index, interaction.symbol, symbolMap)}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-          <TextField
-            label="Comment"
-            variant="outlined"
-            multiline
-            fullWidth={true}
-            defaultValue={testCase.comment}
-            inputProps={{ 'aria-label': 'comment' }}
-            onChange={handleCommentChange}
-            InputLabelProps={{ shrink: true }}
-          />
-          <Box marginTop={2} display="flex" alignItems="center">
-            <Typography variant="subtitle1">Result</Typography>
+            <Typography variant="h6">{`${capitalize(
+              testCaseType
+            )} Test Case ${testCaseName}`}</Typography>
             <Box marginLeft={3}>
-              <ToggleButtonGroup
-                value={testCase.passed}
-                exclusive
-                onChange={handleResultChange}
-              >
-                <ToggleButton
-                  value={true}
-                  selected={testCase.passed || undefined}
-                  aria-label="passed"
-                  classes={{ selected: classes.activePassedToggle }}
+              <Tooltip title="Result" placement="top" arrow>
+                <ToggleButtonGroup
+                  value={testCase.passed}
+                  exclusive
+                  onChange={handleResultChange}
+                  size="small"
                 >
-                  <CheckIcon htmlColor={testCase.passed ? 'white' : ''} />
-                </ToggleButton>
-                <ToggleButton
-                  value={false}
-                  aria-label="failed"
-                  classes={{ selected: classes.activeFailedToggle }}
+                  <ToggleButton
+                    value={true}
+                    selected={testCase.passed || undefined}
+                    aria-label="passed"
+                    classes={{ selected: classes.activePassedToggle }}
+                  >
+                    <CheckIcon htmlColor={testCase.passed ? 'white' : ''} />
+                  </ToggleButton>
+                  <ToggleButton
+                    value={false}
+                    aria-label="failed"
+                    classes={{ selected: classes.activeFailedToggle }}
+                  >
+                    <CloseIcon
+                      htmlColor={testCase.passed === false ? 'white' : ''}
+                    />
+                  </ToggleButton>
+                </ToggleButtonGroup>
+              </Tooltip>
+            </Box>
+          </Box>
+          <Box display="flex" justifyContent="space-between" marginTop={1}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="flex-start"
+              marginBottom={1}
+            >
+              {testCase.interactions.map((interaction, index) => (
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  key={interaction.symbol + index}
                 >
-                  <CloseIcon
-                    htmlColor={testCase.passed === false ? 'white' : ''}
-                  />
-                </ToggleButton>
-              </ToggleButtonGroup>
+                  <Checkbox
+                    checked={interaction.checked}
+                    onChange={(event, checked) =>
+                      handleInteractionCheckChange(event, index, checked)
+                    }
+                    color="primary"
+                    className={classes.checkbox}
+                  ></Checkbox>
+                  <Typography>
+                    {interactionText(index, interaction.symbol, symbolMap)}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+            <Box marginLeft={2} width={400}>
+              <TextField
+                label="Comments"
+                variant="outlined"
+                size="small"
+                multiline
+                fullWidth
+                defaultValue={testCase.comment}
+                inputProps={{ 'aria-label': 'comment' }}
+                onChange={handleCommentChange}
+                InputLabelProps={{ shrink: true }}
+              />
             </Box>
           </Box>
         </Box>
