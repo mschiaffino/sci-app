@@ -31,6 +31,9 @@ const useStylese = makeStyles({
       },
     },
   },
+  avoidPageBreakInside: {
+    pageBreakInside: 'avoid',
+  },
 });
 
 interface Props {
@@ -82,7 +85,7 @@ export default function ReportTestCase({
   };
 
   return (
-    <Box width={500} marginY={2}>
+    <Box width={500} marginY={2} className={classes.avoidPageBreakInside}>
       <Card variant="outlined">
         <Box padding={2}>
           <Typography variant="h6">{`${capitalize(
