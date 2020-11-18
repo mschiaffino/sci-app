@@ -22,14 +22,14 @@ describe('ReportHeader', () => {
   describe('coverage criteria', () => {
     test('should display n for valid sequences', () => {
       expect(
-        screen.getByText(`Base+${reportMock.coverageCriteria.validSequences}`)
+        screen.getByText(`Base + ${reportMock.coverageCriteria.validSequences}`)
       ).toBeInTheDocument();
     });
 
     test('should display n for invalid sequences', () => {
       expect(
         screen.getByText(
-          `Invalid-${reportMock.coverageCriteria.invalidSequences}`
+          `Invalid + ${reportMock.coverageCriteria.invalidSequences}`
         )
       ).toBeInTheDocument();
     });

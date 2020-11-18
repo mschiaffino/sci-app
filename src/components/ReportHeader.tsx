@@ -57,12 +57,12 @@ export default function ReportHeeader({ report }: Props) {
             <Typography>Coverage criteria:</Typography>
           </Box>
           <Box display="flex">
-            <Box marginRight={1}>
-              <Typography>{`Base+${report.coverageCriteria.validSequences}`}</Typography>
+            <Box marginRight={3}>
+              <Typography>{`Base + ${report.coverageCriteria.validSequences}`}</Typography>
             </Box>
 
             <Typography>
-              {`Invalid-${report.coverageCriteria.invalidSequences}`}
+              {`Invalid + ${report.coverageCriteria.invalidSequences}`}
             </Typography>
           </Box>
         </Box>
