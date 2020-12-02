@@ -144,25 +144,30 @@ export default function ReportTestCase({
               justifyContent="flex-start"
               marginBottom={1}
             >
-              {testCase.interactions.map((interaction, index) => (
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  key={interaction.symbol + index}
-                >
-                  <Checkbox
-                    checked={interaction.checked}
-                    onChange={(event, checked) =>
-                      handleInteractionCheckChange(event, index, checked)
-                    }
-                    color="primary"
-                    className={classes.checkbox}
-                  ></Checkbox>
-                  <Typography>
-                    {interactionText(index, interaction.symbol, symbolMap)}
-                  </Typography>
-                </Box>
-              ))}
+              {testCase.interactions.length === 1 &&
+              testCase.interactions[0].symbol === '' ? (
+                <Typography>No interactions</Typography>
+              ) : (
+                testCase.interactions.map((interaction, index) => (
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    key={interaction.symbol + index}
+                  >
+                    <Checkbox
+                      checked={interaction.checked}
+                      onChange={(event, checked) =>
+                        handleInteractionCheckChange(event, index, checked)
+                      }
+                      color="primary"
+                      className={classes.checkbox}
+                    ></Checkbox>
+                    <Typography>
+                      {interactionText(index, interaction.symbol, symbolMap)}
+                    </Typography>
+                  </Box>
+                ))
+              )}
             </Box>
             <Box marginLeft={2} width={400} display="flex">
               <TextField
