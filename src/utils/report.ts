@@ -50,11 +50,13 @@ export function getMappedSci(
   sci: string,
   symbolMap: InteractionSymbolMap = {}
 ): string {
-  // This implementation does not support multicharacter symbols :(
-  return sci
-    .split('')
-    .map((c) => symbolMap[c] || c)
-    .join('');
+  const symbols = Object.keys(symbolMap);
+  if (!symbols) {
+    return sci;
+  }
+  const symbolRegex = new RegExp(symbols.join('|'), 'g');
+
+  return sci.replace(symbolRegex, (symbol) => symbolMap[symbol]);
 }
 /**
  * Generates test case objects for th given sequences of interactions
