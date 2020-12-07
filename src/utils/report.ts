@@ -51,7 +51,8 @@ export function getMappedSci(
   symbolMap: InteractionSymbolMap = {}
 ): string {
   const symbols = Object.keys(symbolMap);
-  if (!symbols) {
+  const interactionNames = Object.values(symbolMap).filter((s) => !!s);
+  if (!interactionNames.length) {
     return sci;
   }
   const symbolRegex = new RegExp(symbols.join('|'), 'g');
